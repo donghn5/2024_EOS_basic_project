@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'EOS ToDoList',
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
+        fontFamily: 'Pretendard',
       ),
       home: const MyHomePage(),
     );
@@ -26,52 +27,60 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: Color(0xFFA4C639).withOpacity(0.1),
         title: const Text('EOS ToDoList'),
-        leading: const Icon(Icons.check_box_outlined),
+        leading: Image.asset('assets/images/eos_logo.png'),
       ),
-      body: Container(
-        height: 200,
-        color: Colors.lightGreen.withOpacity(0.3),
-        padding: const EdgeInsets.all(25),
-        child: Row(
-          children: [
-            Container(
-              width: 150,
-              height: 150,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(
-                  width: 10,
-                  color: Colors.grey,
-                ),
-              ),
-              child: const Center(
-                child: Icon(
-                  Icons.person,
-                  size: 100,
-                  color: Colors.grey,
-                ),
-              ),
-            ),
-            const SizedBox(width: 10),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text('EOS'),
-                Text(
-                  '이동현',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
+      body: Column(
+        children: [
+          Container(
+            height: 200,
+            padding: const EdgeInsets.all(25),
+            child: Row(
+              children: [
+                Container(
+                  width: 140,
+                  height: 140,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      width: 10,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  child: Center(
+                    child: Image.asset('assets/images/eos_logo.png'),
                   ),
                 ),
-                Text('큐티가이'),
+                const SizedBox(width: 35),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        '이동현',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text('큐티가이'),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ],
-        ),
+          ),
+          Container(
+            height: 500,
+            color: Color(0xFFA4C639).withOpacity(0.1),
+          ),
+        ],
       ),
     );
   }
