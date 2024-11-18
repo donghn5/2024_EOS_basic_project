@@ -11,6 +11,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<String> toDoLists = [];
+  final TextEditingController _textController = TextEditingController();
 
   @override
   void initState() {
@@ -18,6 +19,12 @@ class _HomeScreenState extends State<HomeScreen> {
     toDoLists.add("11111");
     toDoLists.add("22222");
     toDoLists.add("33333");
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
   }
 
   @override
@@ -77,8 +84,14 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height - 300,
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height - 300,
                   decoration: BoxDecoration(
                     color: Color(0xFFA4C639).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(20),
@@ -87,7 +100,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Positioned(
                 top: 20,
-                left: MediaQuery.of(context).size.width / 2 - 75,
+                left: MediaQuery
+                    .of(context)
+                    .size
+                    .width / 2 - 75,
                 child: Container(
                   width: 150,
                   height: 38,
@@ -110,7 +126,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 80, left: 40, right: 25),
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height - 400,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height - 400,
                   child: ListView.builder(
                     itemCount: toDoLists.length,
                     itemBuilder: (BuildContext context, int index) {
@@ -130,17 +149,63 @@ class _HomeScreenState extends State<HomeScreen> {
                 bottom: 30,
                 right: 50,
                 child: AddButton(
-                  onPressed: () {
-                    setState(() {
-                      toDoLists.add("+++++++++");
-                    });
-                  },
+                  onPressed: _showToDoDialog,
                 ),
               ),
             ],
           ),
         ],
       ),
+    );
+  }
+
+  // 수정된 _showToDoDialog 메서드
+  void _showToDoDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('할 일 추가'),
+          content: TextField(
+            controller: _textController,
+            decoration: InputDecoration(
+              hintText: '할 일을 입력하세요',
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.grey),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black),
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                '취소',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                if (_textController.text.isNotEmpty) {
+                  setState(() {
+                    toDoLists.add(_textController.text);
+                    _textController.clear();
+                  });
+                  Navigator.of(context).pop();
+                }
+              },
+              child: const Text(
+                '추가',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
