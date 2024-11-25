@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ClipRRect(  // 수정: ClipRRectRect → ClipRRect
                     borderRadius: BorderRadius.circular(80),
                     child: Image.asset(
-                      'assets/images/kijae.png',
+                      'assets/images/dh.png',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -148,7 +148,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // 수정된 _showToDoDialog 메서드
   void _showToDoDialog() {
     showDialog(
       context: context,
